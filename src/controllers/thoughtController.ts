@@ -93,7 +93,7 @@ export const deleteReaction = async (req: Request, res: Response) => {
       return res.status(404).json({ error: 'Reaction not found' });
     }
 
-    reaction.remove(); // Remove the subdocument
+    thought.reactions.pull({ _id: req.params.reactionId }); // Remove the subdocument by its _id
     await thought.save();
     res.status(204).send();
   } catch (error) {
