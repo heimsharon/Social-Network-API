@@ -8,7 +8,7 @@
     "dev": "nodemon src/server.ts",
     "build": "tsc",
     "clean": "rm -rf dist",
-    "seed": "ts-node src/seed.ts"
+    "seed": "ts-node src/utils/seed.ts"
   },
   "author": "Your Name",
   "license": "MIT",
@@ -23,6 +23,7 @@
     "@types/moment": "^2.11.29",
     "@types/mongoose": "^5.11.97",
     "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
     "typescript": "^5.2.2"
   }
 }
