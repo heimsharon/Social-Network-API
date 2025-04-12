@@ -19,7 +19,7 @@ const UserSchema = new Schema<IUser>({
     type: String,
     required: true,
     unique: true,
-    match: [/^\S+@\S+\.\S+$/, 'Must match a valid email address!'], 
+    match: [ /^\S+@\S+\.\S+$/, 'Must match a valid email address!' ],
   },
 
   thoughts: [
@@ -35,12 +35,22 @@ const UserSchema = new Schema<IUser>({
       ref: 'User',
     },
   ],
-});
+},
+
+  {
+    toJSON: {
+      virtuals: true,
+    },
+    toObject: {
+      virtuals: true,
+    },
+  });
 
 // Virtual property for friend count
-UserSchema.virtual('friendCount').get(function (this: IUser) {
-  return this.friends.length;
-});
+UserSchema.virtual('friendCount')
+  .get(function (this: IUser) {
+    return this.friends.length;
+  });
 
 const User = mongoose.model<IUser>('User', UserSchema);
 
