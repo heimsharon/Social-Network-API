@@ -54,7 +54,7 @@ const ThoughtSchema = new Schema<IThought>(
   },
   {
     toJSON: {
-      getters: true, // Enable getters
+      getters: true, 
     },
     id: false, // Disable the virtual `id` field
   }
