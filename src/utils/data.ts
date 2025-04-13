@@ -1,3 +1,5 @@
+// Path: src/utils/data.ts
+// This file contains mock data for users and thoughts to be used in the application via seeding the database
 export const users = [
   {
     username: 'john_doe',

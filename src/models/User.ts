@@ -1,5 +1,8 @@
+// Path: src/models/User.ts
+// This file defines the User model for the application.
 import mongoose, { Schema, Document } from 'mongoose';
 
+// Define the User interface
 interface IUser extends Document {
   username: string;
   email: string;
@@ -7,6 +10,7 @@ interface IUser extends Document {
   friends: string[];
 }
 
+// Define the User schema
 const UserSchema = new Schema<IUser>({
   username: {
     type: String,
@@ -52,6 +56,7 @@ UserSchema.virtual('friendCount')
     return this.friends.length;
   });
 
+// Create the User model
 const User = mongoose.model<IUser>('User', UserSchema);
 
 export default User;

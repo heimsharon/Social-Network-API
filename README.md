@@ -9,11 +9,11 @@ This is a backend API for a social network application built with **Node.js**, *
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [API Endpoints](#api-endpoints)
-    - [Users Database](#users-database)
-    - [Thoughts Database](#thoughts-database)
     - [User Database Models](#user-database-models)
     - [Thought Database Models](#thought-database-models)
     - [Reaction (Sub-Document)](#reaction-sub-document)
+    - [Users Database](#users-database)
+    - [Thoughts Database](#thoughts-database)
   - [Media](#media)
     - [Screen Capture of API endpoints in Insomnia](#screen-capture-of-api-endpoints-in-insomnia)
     - [Video Demonstration of entire build](#video-demonstration-of-entire-build)
@@ -79,26 +79,6 @@ This is a backend API for a social network application built with **Node.js**, *
 
 ## API Endpoints
 
-### Users Database
-
-- <span style="color: purple;">GET</span> /api/users - Get all users
-- <span style="color: purple;">GET</span> /api/users/:id - Get a single user by ID
-- <span style="color: green;">POST</span> /api/users - Create a new user
-- <span style="color: orange;">PUT</span> /api/users/:id - Update a user by ID
-- <span style="color: red;">DELETE</span> /api/users/:id - Delete a user by ID
-- <span style="color: blue;">POST</span> /api/users/:userId/friends/:friendId - Add a friend
-- <span style="color: red;">DELETE</span> /api/users/:userId/friends/:friendId - Remove a friend
-
-### Thoughts Database
-
-- <span style="color: purple;">GET</span> /api/thoughts - Get all thoughts
-- <span style="color: purple;">GET</span> /api/thoughts/:id - Get a single thought by ID
-- <span style="color: green;">POST</span> /api/thoughts - Create a new thought
-- <span style="color: orange;">PUT</span> /api/thoughts/:id - Update a thought by ID
-- <span style="color: red;">DELETE</span> /api/thoughts/:id - Delete a thought
-- <span style="color: green;">POST</span> /api/thoughts/:thoughtId/reactions - Add a reaction to a thought
-- <span style="color: red;">DELETE</span> /api/thoughts/:thoughtId/reactions/:reactionId - Remove a reaction from a thought
-
 ### User Database Models
 
 - username (String, required, unique)
@@ -121,11 +101,31 @@ This is a backend API for a social network application built with **Node.js**, *
 - username (String, required)
 - createdAt (Date, default: current date)
 
+### Users Database
+
+- `GET` `/api/users` - Get all users
+- `GET` `/api/users/:id` - Get a single user by ID
+- `POST` `/api/users` - Create a new user
+- `PUT` `/api/users/:id` - Update a user by ID
+- `DELETE` `/api/users/:id` - Delete a user by ID
+- `POST` `/api/users/:userId/friends/:friendId` - Add a friend
+- `DELETE` `/api/users/:userId/friends/:friendId` - Remove a friend
+
+### Thoughts Database
+
+- `GET` `/api/thoughts` - Get all thoughts
+- `GET` `/api/thoughts/:id` - Get a single thought by ID
+- `POST` `/api/thoughts` - Create a new thought
+- `PUT` `/api/thoughts/:id` - Update a thought by ID
+- `DELETE` `/api/thoughts/:id` - Delete a thought
+- `POST` `/api/thoughts/:thoughtId/reactions` - Add a reaction to a thought
+- `DELETE` `/api/thoughts/:thoughtId/reactions/:reactionId` - Remove a reaction from a thought
+
 ## Media
 
 ### Screen Capture of API endpoints in Insomnia
 
-Below is a screenshot showing the API endpoints tested in Insomnia:
+Below is a screenshot of the API endpoints tested in Insomnia:
 
 ![API Endpoints in Insomnia](./assets/insomniasocialnetworkapi.jpg)
 

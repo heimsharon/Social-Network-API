@@ -1,3 +1,5 @@
+// Path: src/routes/api/userRoutes.ts
+// This file defines the routes for user-related operations.
 import { Router } from "express";
 import {
   getAllUsers,
@@ -10,6 +12,7 @@ import {
   deleteUserAndThoughts,
 } from '../../controllers/userController';
 
+// Create a new router instance
 const router = Router();
 
 // GET all users

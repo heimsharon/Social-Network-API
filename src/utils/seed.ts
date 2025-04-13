@@ -1,3 +1,5 @@
+// Path: src/utils/seed.ts
+// This file is used to seed the database with initial data.
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import User from '../models/User';

@@ -1,3 +1,5 @@
+// Path: src/routes/api/thoughtRoutes.ts
+// This file defines the routes for the Thought model
 import { Router } from 'express';
 import {
   getAllThoughts,
@@ -9,6 +11,7 @@ import {
   deleteReaction,
 } from '../../controllers/thoughtController';
 
+// Create a new router instance
 const router = Router();
 
 // Thought routes

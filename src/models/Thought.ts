@@ -1,6 +1,9 @@
+// Path: src/models/Thought.ts
+// This file defines the Thought model and its schema using Mongoose.
 import mongoose, { Schema, Document, Types } from 'mongoose';
 import moment from 'moment';
 
+// Define the Reaction interface
 export interface IReaction {
   reactionBody: string;
   username: string;
@@ -8,6 +11,7 @@ export interface IReaction {
   _id?: Types.ObjectId;
 }
 
+// Define the Thought interface
 export interface IThought extends Document {
   thoughtText: string;
   createdAt: Date;
@@ -15,6 +19,7 @@ export interface IThought extends Document {
   reactions: Types.DocumentArray<IReaction>; // DocumentArray for sub-documents
 }
 
+// Define the Reaction schema
 const ReactionSchema = new Schema(
   {
     reactionId: {
@@ -44,6 +49,7 @@ const ReactionSchema = new Schema(
   }
 );
 
+// Define the Thought schema
 const ThoughtSchema = new Schema<IThought>(
   {
     thoughtText: {
@@ -71,10 +77,12 @@ const ThoughtSchema = new Schema<IThought>(
   }
 );
 
+// Virtual to get the number of reactions
 ThoughtSchema.virtual('reactionCount').get(function (this: { reactions: Types.DocumentArray<IReaction> }) {
   return this.reactions.length;
 });
 
+// Create the Thought model
 const Thought = mongoose.model<IThought>('Thought', ThoughtSchema);
 
 export default Thought;
