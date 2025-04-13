@@ -105,7 +105,10 @@ export const deleteReaction = async (req: Request, res: Response) => {
       return res.status(404).json({ error: 'Thought not found' });
     }
 
-    res.status(200).json({ message: 'Reaction deleted successfully', data: thought });
+    res.status(200).json({
+      message: 'Reaction removed successfully',
+      data: thought,
+    });
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete reaction', details: error });
   }
