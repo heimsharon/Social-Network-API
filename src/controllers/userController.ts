@@ -6,7 +6,7 @@ import Thought from '../models/Thought';
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
     const users = await User.find().populate('thoughts').populate('friends');
-    res.status(200).json(users);
+    res.status(200).json({ message: 'Users retrieved successfully', data: users });
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch users', details: error });
   }
@@ -19,7 +19,7 @@ export const getUserById = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.status(200).json(user);
+    res.status(200).json({ message: 'User retrieved successfully', data: user });
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch user', details: error });
   }
@@ -29,26 +29,23 @@ export const getUserById = async (req: Request, res: Response) => {
 export const createUser = async (req: Request, res: Response) => {
   try {
     const newUser = await User.create(req.body);
-    res.status(201).json(newUser);
+    res.status(201).json({ message: 'User created successfully', data: newUser });
   } catch (error) {
     res.status(500).json({ error: 'Failed to create user', details: error });
   }
 };
 
 // PUT to update a user by its _id
-export const updateUser = async (req: Request, res: Response) => 
-{
-    try {
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body,
-             { new: true });
-        if (!updatedUser) 
-            {
-            return res.status(404).json({ error: 'User not found' });
-        }
-        res.status(200).json(updatedUser);
-    } catch (error) {
-        res.status(500).json({ error: 'Failed to update user', details: error });
-     }
+export const updateUser = async (req: Request, res: Response) => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updatedUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.status(200).json({ message: 'User updated successfully', data: updatedUser });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update user', details: error });
+  }
 };
 
 // DELETE to remove user by its _id
@@ -58,12 +55,13 @@ export const deleteUser = async (req: Request, res: Response) => {
     if (!deletedUser) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.status(204).send();
+    res.status(200).json({ message: `User with ID ${req.params.id} was successfully deleted.` });
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete user', details: error });
   }
 };
-//POST to add a new friend to a user's friend list
+
+// POST to add a new friend to a user's friend list
 export const addFriend = async (req: Request, res: Response) => {
   try {
     const user = await User.findByIdAndUpdate(
@@ -74,13 +72,13 @@ export const addFriend = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.status(200).json(user);
+    res.status(200).json({ message: 'Friend added successfully', data: user });
   } catch (error) {
     res.status(500).json({ error: 'Failed to add friend', details: error });
   }
 };
 
-//DELETE to remove a friend from a user's friend list
+// DELETE to remove a friend from a user's friend list
 export const removeFriend = async (req: Request, res: Response) => {
   try {
     const user = await User.findByIdAndUpdate(
@@ -91,11 +89,12 @@ export const removeFriend = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.status(200).json(user);
+    res.status(200).json({ message: 'Friend removed successfully', data: user });
   } catch (error) {
     res.status(500).json({ error: 'Failed to remove friend', details: error });
   }
-}
+};
+
 // DELETE to remove user and associated thoughts by its _id
 export const deleteUserAndThoughts = async (req: Request, res: Response) => {
   try {
@@ -105,7 +104,7 @@ export const deleteUserAndThoughts = async (req: Request, res: Response) => {
     }
     // Delete associated thoughts of deleted user
     await Thought.deleteMany({ username: user.username });
-    res.status(204).send();
+    res.status(200).json({ message: `User and associated thoughts were successfully deleted.` });
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete user and thoughts', details: error });
   }
