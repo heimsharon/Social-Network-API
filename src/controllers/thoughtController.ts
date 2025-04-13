@@ -71,7 +71,7 @@ export const deleteThought = async (req: Request, res: Response) => {
     if (!deletedThought) {
       return res.status(404).json({ error: 'Thought not found' });
     }
-    res.status(200).json(deletedThought);
+    res.status(200).json({ message: 'Thought deleted successfully', data: deletedThought });
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete thought', details: error });
   }
@@ -105,7 +105,7 @@ export const deleteReaction = async (req: Request, res: Response) => {
       return res.status(404).json({ error: 'Thought not found' });
     }
 
-    res.status(200).json(thought);
+    res.status(200).json({ message: 'Reaction deleted successfully', data: thought });
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete reaction', details: error });
   }

@@ -55,7 +55,7 @@ export const deleteUser = async (req: Request, res: Response) => {
     if (!deletedUser) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.status(200).json(deletedUser);
+    res.status(200).json({ message: 'User deleted successfully', data: deletedUser });
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete user', details: error });
   }
@@ -89,7 +89,7 @@ export const removeFriend = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.status(200).json(user);
+    res.status(200).json({ message: 'Friend removed successfully', data: user });
   } catch (error) {
     res.status(500).json({ error: 'Failed to remove friend', details: error });
   }
@@ -104,7 +104,7 @@ export const deleteUserAndThoughts = async (req: Request, res: Response) => {
     }
     // Delete associated thoughts of deleted user
     await Thought.deleteMany({ username: user.username });
-    res.status(200).json(user);
+    res.status(200).json({ message: 'User and associated thoughts deleted successfully', data: user });
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete user and thoughts', details: error });
   }
