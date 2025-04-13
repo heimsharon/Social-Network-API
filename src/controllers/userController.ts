@@ -6,7 +6,7 @@ import Thought from '../models/Thought';
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
     const users = await User.find().populate('thoughts').populate('friends');
-    res.status(200).json({ message: 'Users retrieved successfully', data: users });
+    res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch users', details: error });
   }
@@ -19,7 +19,7 @@ export const getUserById = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.status(200).json({ message: 'User retrieved successfully', data: user });
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch user', details: error });
   }
@@ -29,7 +29,7 @@ export const getUserById = async (req: Request, res: Response) => {
 export const createUser = async (req: Request, res: Response) => {
   try {
     const newUser = await User.create(req.body);
-    res.status(201).json({ message: 'User created successfully', data: newUser });
+    res.status(201).json(newUser);
   } catch (error) {
     res.status(500).json({ error: 'Failed to create user', details: error });
   }
@@ -42,7 +42,7 @@ export const updateUser = async (req: Request, res: Response) => {
     if (!updatedUser) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.status(200).json({ message: 'User updated successfully', data: updatedUser });
+    res.status(200).json(updatedUser);
   } catch (error) {
     res.status(500).json({ error: 'Failed to update user', details: error });
   }
@@ -55,7 +55,7 @@ export const deleteUser = async (req: Request, res: Response) => {
     if (!deletedUser) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.status(200).json({ message: `User with ID ${req.params.id} was successfully deleted.` });
+    res.status(200).json(deletedUser);
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete user', details: error });
   }
@@ -72,7 +72,7 @@ export const addFriend = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.status(200).json({ message: 'Friend added successfully', data: user });
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: 'Failed to add friend', details: error });
   }
@@ -89,7 +89,7 @@ export const removeFriend = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.status(200).json({ message: 'Friend removed successfully', data: user });
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: 'Failed to remove friend', details: error });
   }
@@ -104,7 +104,7 @@ export const deleteUserAndThoughts = async (req: Request, res: Response) => {
     }
     // Delete associated thoughts of deleted user
     await Thought.deleteMany({ username: user.username });
-    res.status(200).json({ message: `User and associated thoughts were successfully deleted.` });
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete user and thoughts', details: error });
   }

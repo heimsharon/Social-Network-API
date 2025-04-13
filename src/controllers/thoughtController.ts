@@ -45,7 +45,7 @@ export const createThought = async (req: Request, res: Response) => {
   try {
     const newThought = await Thought.create(req.body);
     await User.findByIdAndUpdate(req.body.userId, { $push: { thoughts: newThought._id } });
-    res.status(201).json({ message: 'Thought created successfully', data: newThought });
+    res.status(201).json(newThought);
   } catch (error) {
     res.status(500).json({ error: 'Failed to create thought', details: error });
   }
@@ -58,7 +58,7 @@ export const updateThought = async (req: Request, res: Response) => {
     if (!updatedThought) {
       return res.status(404).json({ error: 'Thought not found' });
     }
-    res.status(200).json({ message: 'Thought updated successfully', data: updatedThought });
+    res.status(200).json(updatedThought);
   } catch (error) {
     res.status(500).json({ error: 'Failed to update thought', details: error });
   }
@@ -71,7 +71,7 @@ export const deleteThought = async (req: Request, res: Response) => {
     if (!deletedThought) {
       return res.status(404).json({ error: 'Thought not found' });
     }
-    res.status(200).json({ message: `Thought with ID ${req.params.id} was successfully deleted.` });
+    res.status(200).json(deletedThought);
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete thought', details: error });
   }
@@ -86,7 +86,7 @@ export const createReaction = async (req: Request, res: Response) => {
     }
     thought.reactions.push(req.body);
     await thought.save();
-    res.status(201).json({ message: 'Reaction added successfully', data: thought });
+    res.status(201).json(thought);
   } catch (error) {
     res.status(500).json({ error: 'Failed to create reaction', details: error });
   }
@@ -97,15 +97,15 @@ export const deleteReaction = async (req: Request, res: Response) => {
   try {
     const thought = await Thought.findByIdAndUpdate(
       req.params.thoughtId,
-      { $pull: { reactions: { _id: req.params.reactionId } } }, // Use $pull to remove the reaction
-      { new: true } // Return the updated document
+      { $pull: { reactions: { _id: req.params.reactionId } } },
+      { new: true }
     );
 
     if (!thought) {
       return res.status(404).json({ error: 'Thought not found' });
     }
 
-    res.status(200).json({ message: `Reaction with ID ${req.params.reactionId} was successfully deleted.`, data: thought });
+    res.status(200).json(thought);
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete reaction', details: error });
   }
