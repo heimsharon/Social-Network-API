@@ -1,138 +1,217 @@
 # Social Network API
 
-This is a backend API for a social network application built with **Node.js**, **Express**, **TypeScript**, and **MongoDB**. It allows users to share their thoughts, react to friends' thoughts, and manage their friend list.
+_A RESTful backend for a social networking platform, featuring user accounts, thoughts, reactions, and friend management. Built with Node.js, Express, TypeScript, and MongoDB._
+
+![MIT License](https://img.shields.io/badge/license-MIT-green)
+![Node.js](https://img.shields.io/badge/Node.js-18%2B-brightgreen)
+![Express](https://img.shields.io/badge/Express.js-4+-blue)
+![MongoDB](https://img.shields.io/badge/MongoDB-Database-green)
+![TypeScript](https://img.shields.io/badge/TypeScript-5+-blue)
+![Student Project](https://img.shields.io/badge/student_project-S_Heim-yellow)
+
+---
 
 ## Table of Contents
 
-- [Social Network API](#social-network-api)
-  - [Table of Contents](#table-of-contents)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [API Endpoints](#api-endpoints)
-    - [User Database Models](#user-database-models)
-    - [Thought Database Models](#thought-database-models)
-    - [Reaction (Sub-Document)](#reaction-sub-document)
-    - [Users Database](#users-database)
-    - [Thoughts Database](#thoughts-database)
-  - [Media](#media)
-    - [Screen Capture of API endpoints in Insomnia](#screen-capture-of-api-endpoints-in-insomnia)
-    - [Video Demonstration of entire build](#video-demonstration-of-entire-build)
-  - [License](#license)
+-   [Social Network API](#social-network-api)
+    -   [Table of Contents](#table-of-contents)
+    -   [Description](#description)
+    -   [Features](#features)
+    -   [Prerequisites](#prerequisites)
+    -   [Technologies Used](#technologies-used)
+    -   [Quick Start](#quick-start)
+    -   [Installation](#installation)
+    -   [API Documentation](#api-documentation)
+    -   [Usage](#usage)
+    -   [Media](#media)
+        -   [Screen Capture of API endpoints in Insomnia](#screen-capture-of-api-endpoints-in-insomnia)
+        -   [Video Demonstration](#video-demonstration)
+    -   [License](#license)
+    -   [Notes](#notes)
+    -   [Contributing, Support, and FAQ](#contributing-support-and-faq)
+    -   [Acknowledgments](#acknowledgments)
+    -   [Author](#author)
+
+---
+
+## Description
+
+The Social Network API is a backend service that enables users to register, share thoughts, react to posts, and manage friend relationships. Designed for flexibility and scalability, it leverages Node.js, Express, TypeScript, and MongoDB (with Mongoose) to provide robust data modeling, validation, and error handling. This API is ideal for learning backend development, RESTful design, and NoSQL data structures.
+
+---
+
+## Features
+
+-   User registration and management
+-   CRUD operations for thoughts
+-   Add and remove friends
+-   React to thoughts (add/remove reactions)
+-   Virtual properties for friend and reaction counts
+-   Data validation and error handling
+-   Seed script for populating the database with sample data
+
+---
 
 ## Prerequisites
 
-- [**Node.js**](https://nodejs.org/) - JavaScript runtime
-- [**Express.js**](https://expressjs.com/) - Web framework for Node.js
-- [**TypeScript**](https://www.typescriptlang.org/) - Typed JavaScript at scale
-- [**MongoDB**](https://www.mongodb.com/) - NoSQL database
-- [**Mongoose**](https://mongoosejs.com/) - MongoDB object modeling for Node.js
-- [**dotenv**](https://github.com/motdotla/dotenv) - Environment variable management
-- [**moment**](https://momentjs.com/) - Date and time library
-- **API Testing Tool** (e.g., [**Insomnia**](https://insomnia.rest/) or [**Postman**](https://www.postman.com/))
+-   [Node.js](https://nodejs.org/) (v18 or higher)
+-   [npm](https://www.npmjs.com/) (comes with Node.js)
+-   [MongoDB](https://www.mongodb.com/) (local or cloud)
+-   [Git](https://git-scm.com/) (for cloning)
+
+---
+
+## Technologies Used
+
+-   [Node.js](https://nodejs.org/)
+-   [Express.js](https://expressjs.com/)
+-   [TypeScript](https://www.typescriptlang.org/)
+-   [MongoDB](https://www.mongodb.com/)
+-   [Mongoose](https://mongoosejs.com/)
+-   [dotenv](https://github.com/motdotla/dotenv)
+-   [moment](https://momentjs.com/)
+
+---
+
+## Quick Start
+
+> You can get the code by either cloning this repository using Git, or downloading it as a ZIP file from GitHub (click the green "Code" button, then "Download ZIP").
+> On GitHub, you can also browse the code, view commit history, open issues, and submit pull requests.
+
+---
 
 ## Installation
 
-1. Clone the repository:
+1. **Clone the repository:**
 
-   ```bash
-   git clone <repository-url>
-   cd social-network-api
-   ```
+    ```bash
+    git clone <repository-url>
+    cd social-network-api
+    ```
 
-2. Install dependencies:
+2. **Install dependencies:**
 
-   ```bash
-   npm install
-   ```
+    ```bash
+    npm install
+    ```
 
-3. Create a .env file in the root directory and add the following environment variables:
+3. **Set up environment variables:**
 
-   ```plaintext
-   MONGODB_URI=mongodb://localhost:27017/socialNetworkDB
-   PORT=3001
-   ```
+    Create a `.env` file in the root directory with the following content:
 
-4. Build the TypeScript files:
+    ```env
+    MONGODB_URI=mongodb://localhost:27017/socialNetworkDB
+    PORT=3001
+    ```
 
-   ```bash
-   npm run build
-   ```
+    > **Note:** Never commit your real `.env` file to version control. Only commit `.env.example` with placeholder values.
 
-5. Seed the database:
+4. **Build the TypeScript files:**
 
-   ```bash
-   npm run seed
-   ```
+    ```bash
+    npm run build
+    ```
 
-6. Development mode or Production Mode:
-   - Start the server in development mode:
+5. **Seed the database (optional):**
 
-     ```bash
-     npm run dev
-     ```
+    ```bash
+    npm run seed
+    ```
 
-   - Start the server in production mode:
+6. **Start the server:**
 
-     ```bash
-     npm start
-     ```
+    - **Development mode:**
 
-## API Endpoints
+        ```bash
+        npm run dev
+        ```
 
-### User Database Models
+    - **Production mode:**
 
-- username (String, required, unique)
-- email (String, required, unique, must match a valid email format)
-- thoughts (Array of ObjectIds referencing Thought)
-- friends (Array of ObjectIds referencing User)
-- Virtual: friendCount - Number of friends
+        ```bash
+        npm start
+        ```
 
-### Thought Database Models
+    The API will be available at [http://localhost:3001](http://localhost:3001)
 
-- thoughtText (String, required, 1-280 characters)
-- createdAt (Date, default: current date)
-- username (String, required)
-- reactions (Array of sub-documents)
-- Virtual: reactionCount - Number of reactions
+---
 
-### Reaction (Sub-Document)
+## API Documentation
 
-- reactionBody (String, required, max 280 characters)
-- username (String, required)
-- createdAt (Date, default: current date)
+See [API.md](./API.md) for a full list of available endpoints and usage examples.
 
-### Users Database
+---
 
-- `GET` `/api/users` - Get all users
-- `GET` `/api/users/:id` - Get a single user by ID
-- `POST` `/api/users` - Create a new user
-- `PUT` `/api/users/:id` - Update a user by ID
-- `DELETE` `/api/users/:id` - Delete a user by ID
-- `POST` `/api/users/:userId/friends/:friendId` - Add a friend
-- `DELETE` `/api/users/:userId/friends/:friendId` - Remove a friend
+## Usage
 
-### Thoughts Database
+1. Use an API client like [Insomnia](https://insomnia.rest/) or [Postman](https://www.postman.com/) to interact with the endpoints.
+2. Create users, add thoughts, add friends, and react to thoughts using the documented endpoints in [API.md](./API.md).
+3. Use the seed script to populate the database with sample users and thoughts for testing.
 
-- `GET` `/api/thoughts` - Get all thoughts
-- `GET` `/api/thoughts/:id` - Get a single thought by ID
-- `POST` `/api/thoughts` - Create a new thought
-- `PUT` `/api/thoughts/:id` - Update a thought by ID
-- `DELETE` `/api/thoughts/:id` - Delete a thought
-- `POST` `/api/thoughts/:thoughtId/reactions` - Add a reaction to a thought
-- `DELETE` `/api/thoughts/:thoughtId/reactions/:reactionId` - Remove a reaction from a thought
+---
 
 ## Media
 
 ### Screen Capture of API endpoints in Insomnia
 
-Below is a screenshot of the API endpoints tested in Insomnia:
-
 ![API Endpoints in Insomnia](./assets/insomniasocialnetworkapi.jpg)
 
-### Video Demonstration of entire build
+### Video Demonstration
 
-A video walkthrough of the project, including setup, API functionality, and usage, can be found [here](https://drive.google.com/file/d/12LKGpaz_1yW08DYpy_faghj0fJR8uJ7u/view?usp=drive_link).
+A video walkthrough of the project, including setup and API usage, can be found [here](https://drive.google.com/file/d/12LKGpaz_1yW08DYpy_faghj0fJR8uJ7u/view?usp=drive_link).
+
+---
 
 ## License
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+You are free to use, modify, and distribute this software for personal or commercial purposes, provided you include the original copyright
+and license notice in any copies or substantial portions of the software.
+
+See the [MIT License text](https://opensource.org/licenses/MIT) for full details.
+
+---
+
+## Notes
+
+-   The codebase is written in TypeScript and is heavily commented for clarity.
+-   The repository includes a seed script for quickly populating the database with sample data.
+-   All environment variables should be stored in a `.env` file and never committed to version control.
+
+---
+
+## Contributing, Support, and FAQ
+
+-   **Contributions:** Pull requests are welcome! Please open an issue or submit a pull request for improvements or bug fixes.
+-   **Support:** If you encounter any issues or have suggestions, please open an issue on GitHub.
+-   **FAQ:**
+    -   _How do I run the program?_
+        See the [Installation](#installation) and [Usage](#usage) sections above.
+    -   _Can I use this for my own project?_
+        Yes, this project is MIT licensed. See the [License](#license) section.
+    -   _I'm having trouble connecting to the database or running the app!_
+        -   Double-check your `.env` file values, especially `MONGODB_URI`.
+        -   Make sure MongoDB is running and accessible.
+        -   Try running `npm install` if you see missing module errors.
+        -   If you need to reset the database, you can re-run the seed command:
+            ```bash
+            npm run seed
+            ```
+
+---
+
+## Acknowledgments
+
+Portions of this project were developed using starter code provided by [edX Boot Camps LLC](https://bootcamp.edx.org/) for educational purposes.
+
+---
+
+## Author
+
+Created by Sharon Heim.
+For questions or suggestions, please visit my [GitHub profile](https://github.com/heimsharon).
+
+---
+
+© 2024 Social Network API Project
